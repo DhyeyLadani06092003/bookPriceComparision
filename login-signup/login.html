@@ -1,141 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="stylesheet" href="style_login.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style_login.css" />
     <title>Price comparision</title>
-</head>
-<body>
- <div class="wrapper">
-    <nav class="nav">
+  </head>
+  <body>
+    <div class="wrapper">
+      <nav class="nav">
         <div class="nav-logo">
-            <h1>ENJOY</h1> 
-            <h3>Reading moments</h3>
-                <p>
-                Welcome to our collage course books 
-                website,From beginner basics to advanced 
-                techniques, find the perfect book to 
-                enhance your collage journey, and 
-                academic understanding with our 
-                carefully selected collage course books...
-                </p>
+          <h1>ENJOY</h1>
+          <h3>Reading moments</h3>
+          <p>
+            Welcome to our collage course books website,From beginner basics to
+            advanced techniques, find the perfect book to enhance your collage
+            journey, and academic understanding with our carefully selected
+            collage course books...
+          </p>
         </div>
         <div class="nav-menu" id="navMenu">
-            <!-- <ul> -->
-                <!-- <li><a href="#" class="link active">Home</a></li> -->
-                <!-- <li><a href="#" class="link">Blog</a></li> -->
-                <!-- <li><a href="#" class="link">Services</a></li> -->
-                <!-- <li><a href="#" class="link">About</a></li> -->
-            <!-- </ul> -->
+          <!-- <ul> -->
+          <!-- <li><a href="#" class="link active">Home</a></li> -->
+          <!-- <li><a href="#" class="link">Blog</a></li> -->
+          <!-- <li><a href="#" class="link">Services</a></li> -->
+          <!-- <li><a href="#" class="link">About</a></li> -->
+          <!-- </ul> -->
         </div>
         <div class="nav-button">
-            <button class="btn white-btn" id="loginBtn" onclick="login()">Sign In</button>
-            <button class="btn" id="registerBtn" onclick="register()">Sign Up</button>
+          <button class="btn white-btn" id="loginBtn" onclick="login()">
+            Sign In
+          </button>
+          <button class="btn" id="registerBtn" onclick="register()">
+            Sign Up
+          </button>
         </div>
         <div class="nav-menu-btn">
-            <i class="bx bx-menu" onclick="myMenuFunction()"></i>
+          <i class="bx bx-menu" onclick="myMenuFunction()"></i>
         </div>
-    </nav>
+      </nav>
 
-<!----------------------------- Form box ----------------------------------->    
-<div class="form-box">
-    <div class="login-container" id="login">
-        <header>Login</header>
-        <div class="input-box">
-            <input type="text" class="input-field" id="usernameOrEmail" placeholder="Username or Email">
+      <!----------------------------- Form box ----------------------------------->
+      <div class="form-box">
+        <div class="login-container" id="login">
+          <header>Login</header>
+          <div class="input-box">
+            <input
+              type="text"
+              class="input-field"
+              id="usernameOrEmail"
+              placeholder="Username or Email"
+            />
             <i class="bx bx-user"></i>
-        </div>
-        <div class="input-box">
-            <input type="password" class="input-field" id="password" placeholder="Password">
+          </div>
+          <div class="input-box">
+            <input
+              type="password"
+              class="input-field"
+              id="password"
+              placeholder="Password"
+            />
             <i class="bx bx-lock-alt"></i>
-        </div>
-        <div class="input-box">
-            <input type="submit" class="submit" value="Sign In" onclick="login()">
-        </div>
-        <!-- Checkbox and Forgot password link -->
-        <div class="two-col">
+          </div>
+          <div class="input-box">
+            <input
+              type="submit"
+              class="submit"
+              value="Sign In"
+              onclick="login()"
+            />
+          </div>
+          <!-- Checkbox and Forgot password link -->
+          <div class="two-col">
             <!-- Remember Me checkbox -->
             <div class="one">
-                <input type="checkbox" id="login-check">
-                <label for="login-check"> Remember Me</label>
+              <input type="checkbox" id="login-check" />
+              <label for="login-check"> Remember Me</label>
             </div>
             <!-- Forgot password link -->
             <div class="two">
-                <label><a href="#">Forgot password?</a></label>
+              <label><a href="#">Forgot password?</a></label>
             </div>
+          </div>
+          <!-- Sign Up link -->
+          <div class="top">
+            <span
+              >Don't have an account?
+              <a href="#" onclick="register()">Sign Up</a></span
+            >
+          </div>
         </div>
-        <!-- Sign Up link -->
-        <div class="top">
-            <span>Don't have an account? <a href="#" onclick="register()">Sign Up</a></span>
-        </div>
+      </div>
     </div>
-</div>
-</div>   
 
-<script>
-function login() {
-    // Retrieve input values
-    var usernameOrEmail = document.getElementById("usernameOrEmail").value;
-    var password = document.getElementById("password").value;
+    <script>
+      function login() {
+        // Retrieve input values
+        var usernameOrEmail = document.getElementById("usernameOrEmail").value;
+        var password = document.getElementById("password").value;
 
-    // Construct request body
-    var data = {
-        identifier: usernameOrEmail,
-        password: password
-    };
+        // Construct request body
+        var data = {
+          identifier: usernameOrEmail,
+          password: password,
+        };
 
-    // Send POST request to server
-    fetch('http://localhost:5000/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => {
-        if (response.ok) {
-            // Handle successful login (redirect, show message, etc.)
-            console.log("Login successful");
-        } else {
-            // Handle failed login (show error message, reset form, etc.)
-            console.error("Login failed");
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-}
-function simulateLogin() {
-        var usernameOrEmail = document.getElementById("loginUsernameOrEmail").value;
+        // Send POST request to server
+        fetch("http://localhost:5000/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => {
+            if (response.ok) {
+              // Handle successful login (redirect, show message, etc.)
+              console.log("Login successful");
+            } else {
+              // Handle failed login (show error message, reset form, etc.)
+              console.error("Login failed");
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
+      function simulateLogin() {
+        var usernameOrEmail = document.getElementById(
+          "loginUsernameOrEmail"
+        ).value;
         var password = document.getElementById("loginPassword").value;
 
-        fetch('/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                identifier: usernameOrEmail,
-                password: password,
-            }),
+        fetch("/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            identifier: usernameOrEmail,
+            password: password,
+          }),
         })
-        .then(response => {
+          .then((response) => {
             if (response.ok) {
-                window.location.href = 'E:\Compare_prices\bookPriceComparision\public\index.html'; // Redirect on success
+                window.location.search = "127.0.0.1:5500/index.html"; // Redirect on success
             } else {
-                console.error('Login failed:', response.statusText);
+              console.error("Login failed:", response.statusText);
             }
-        })
-        .catch(error => {
-            console.error('Error during login:', error);
-        });
-    }
-</script>
-
-</body>
+          })
+          .catch((error) => {
+            console.error("Error during login:", error);
+          });
+      }
+    </script>
+  </body>
 </html>
 <!-- <script>
     function myMenuFunction() {
