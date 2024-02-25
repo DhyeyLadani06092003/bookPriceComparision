@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Price Comparison</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Price Comparison</h1>
+    <form id="bookForm">
+        <label for="bookInput">Enter Book Name:</label>
+        <input type="text" id="bookInput" name="bookInput" required>
+        <button type="button" onclick="searchBook()"><b>Search</b></button>
+    </form>
+    <div id="bookInfoContainer">
+        <table id="bookTable">
+            <thead>
+                <tr>
+                    <th>Detail</th>
+                    <th>Amazon</th>
+                    <th>Flipkart</th>
+                </tr>
+            </thead>
+            <tbody id="bookInfoBody"></tbody>
+        </table>
+    </div>
+<script>
+    function searchBook() {
+        const bookName = document.getElementById('bookInput').value;
+
+        fetch(`/books/${encodeURIComponent(bookName)}`)
+            .then(response => response.json())
+            .then(data => displayBookInfo(data))
+            .catch(error => console.error('Error:', error));
+    }
+
+    function displayBookInfo(data) {
+        const bookInfoBody = document.getElementById('bookInfoBody');
+        bookInfoBody.innerHTML = '';
+
+        if (data.error) {
+            const errorRow = document.createElement('tr');
+            errorRow.innerHTML = `<td colspan="3">${data.error}</td>`;
+            bookInfoBody.appendChild(errorRow);
+        } else {
+            const book = data[0];
+
+            const details = [
+                { label: 'Author', key: 'author' },
+                { label: 'Publication', key: 'publication' },
+                { label: 'Edition', key: 'edition' },
+                { label: 'Price', key: 'price_amazon' },
+                { label: 'Rating', key: 'rating_amazon' },
+                { label: 'Link', key: 'link_amazon' },
+            ];
+
+            details.forEach(detail => {
+                const row = document.createElement('tr');
+                if (detail.label === 'Link') {
+                    // For the link, create a hyperlink with target="_blank"
+                    row.innerHTML = `
+                        <th>${detail.label}</th>
+                        <td><a href="${book[detail.key]}" target="_blank">${book[detail.key]}</a></td>
+                        <td><a href="${book[detail.key.replace('_amazon', '_flipkart')]}" target="_blank">${book[detail.key.replace('_amazon', '_flipkart')]}</a></td>
+                    `;
+                } else {
+                    // For other details, display as usual
+                    row.innerHTML = `
+                        <th>${detail.label}</th>
+                        <td>${book[detail.key]}</td>
+                        <td>${book[detail.key.replace('_amazon', '_flipkart')]}</td>
+                    `;
+                }
+                bookInfoBody.appendChild(row);
+            });
+        }
+    }
+</script>
+</body>
+</html>

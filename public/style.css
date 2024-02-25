@@ -1,0 +1,116 @@
+/* General styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    /* Friendly and versatile font */
+    background-color: #f9f9f9;
+    /* Light background */
+    background-image: linear-gradient(to right, #f2f2f2 0%, #f9f9f9 50%, #f2f2f2 100%);
+    /* Subtle gradient */
+    background: url("1.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow: hidden;
+}
+
+h1 {
+    text-align: center;
+    color: #e6f958;
+    /* Deep blue */
+    font-size: 2.5em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    /* Drop shadow */
+    margin-bottom: 30px;
+}
+
+/* Form styles */
+form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* Vertically align elements */
+    margin-bottom: 40px;
+}
+
+label {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #090909;
+    /* Deep green */
+}
+
+input[type="text"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+button {
+    background-color:  #d0c5c5;
+    /* Warm yellow */
+    color: #333;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    /* Subtle shadow */
+}
+
+/* Table styles */
+table {
+    border-collapse: collapse;
+    margin-top: 20px;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Stronger shadow */
+}
+
+th,
+td {
+    padding: 12px;
+    text-align: left;
+    vertical-align: top;
+}
+
+
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    border-bottom: 2px solid #ddd;
+}
+
+/* Alternate row colors */
+tr:nth-child(even) {
+    background-color: #f5f5f5;
+}
+
+tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+/* Hover effect with color change */
+tr:hover {
+    background-color: #e0f2f1;
+    /* Light turquoise */
+    animation: pulse 0.25s ;
+}
+
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.005);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
