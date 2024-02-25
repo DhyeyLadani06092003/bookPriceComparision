@@ -5,6 +5,8 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const app = express();
 const port = 5000;
+const mongoose = require("mongoose");
+const User = require("./model/user");
 
 app.use(
   cors({
@@ -28,6 +30,19 @@ db.connect((err) => {
   }
 });
 
+// MongoDB Connection
+mongoose.connect("mongodb://localhost:27017/bookPriceComparision", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
+
+mongoose.connection.on("connected", () => {
+  console.log("Connected to MongoDB");
+});
+
+mongoose.connection.on("error", (err) => {
+  console.error("Error connecting to MongoDB:", err);
+});
 // Middleware for CORS
 app.use(cors());
 app.use(bodyParser.json());
@@ -60,20 +75,19 @@ app.get("/books/:bookName", (req, res) => {
 
 // API to handle user login
 app.post("/login", (req, res) => {
-  const { identifier, password } = req.body;
+  const username = req.body.username;
+  const password = req.body.password;
 
-  const sql =
-    "SELECT * FROM Users WHERE (username = ? OR email = ?) AND password = ?";
-  db.query(sql, [identifier, identifier, password], (err, result) => {
-    if (err) {
-      console.error("Database query error:", err);
-      res.status(500).json({ error: "Internal Server Error" });
+  // login using mongodb
+  User.findOne({ username }).then((user) => {
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    if (user.password === password) {
+      // redirect to https://www.google.com
+      res.redirect("http://127.0.0.1/index.html/");
     } else {
-      if (result.length > 0) {
-        res.redirect("/index.html");
-      } else {
-        res.status(401).json({ error: "Invalid credentials" });
-      }
+      return res.status(401).json({ error: "Incorrect password" });
     }
   });
 });
