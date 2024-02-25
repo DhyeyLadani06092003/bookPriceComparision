@@ -108,6 +108,31 @@ function login() {
         console.error('Error:', error);
     });
 }
+function simulateLogin() {
+        var usernameOrEmail = document.getElementById("loginUsernameOrEmail").value;
+        var password = document.getElementById("loginPassword").value;
+
+        fetch('/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                identifier: usernameOrEmail,
+                password: password,
+            }),
+        })
+        .then(response => {
+            if (response.ok) {
+                window.location.href = 'E:\Compare_prices\bookPriceComparision\public\index.html'; // Redirect on success
+            } else {
+                console.error('Login failed:', response.statusText);
+            }
+        })
+        .catch(error => {
+            console.error('Error during login:', error);
+        });
+    }
 </script>
 
 </body>
@@ -147,7 +172,7 @@ function login() {
         console.log("Test done...")
     }
 
-    function simulateLogin() {
+    <!-- function simulateLogin() {
         var usernameOrEmail = document.getElementById("loginUsernameOrEmail").value;
         var password = document.getElementById("loginPassword").value;
 
@@ -171,8 +196,8 @@ function login() {
         .catch(error => {
             console.error('Error during login:', error);
         });
-    }
-
+    } -->
+<!-- 
     function simulateSignup() {
         var username = document.getElementById("signupUsername").value;
         var email = document.getElementById("signupEmail").value;
@@ -200,7 +225,7 @@ function login() {
             console.error('Error during signup:', error);
         });
     }
-</script> -->
 
 
 
+ -->
