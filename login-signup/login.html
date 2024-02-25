@@ -41,94 +41,78 @@
     </nav>
 
 <!----------------------------- Form box ----------------------------------->    
-    <div class="form-box">
-        
-        <!------------------- login form -------------------------->
-
-        <div class="login-container" id="login">
-               
-            <header>Login</header>
-            
-            <div class="input-box">
-                <input type="text" class="input-field" placeholder="Username or Email">
-                <i class="bx bx-user"></i>
-            </div>
-            <div class="input-box">
-                <input type="password" class="input-field" placeholder="Password">
-                <i class="bx bx-lock-alt"></i>
-            </div>
-            <div class="input-box">
-                <input type="submit" class="submit" value="Sign In">
-            </div>
-            <div class="two-col">
-                <div class="one">
-                    <input type="checkbox" id="login-check">
-                    <label for="login-check"> Remember Me</label>
-                </div>
-                <div class="two">
-                    <label><a href="#">Forgot password?</a></label>
-                </div>
-            </div>
-            <div class="top">
-                <span>Don't have an account? <a href="#" onclick="register()">Sign Up</a></span>
-              
-            </div>
-
+<div class="form-box">
+    <div class="login-container" id="login">
+        <header>Login</header>
+        <div class="input-box">
+            <input type="text" class="input-field" id="usernameOrEmail" placeholder="Username or Email">
+            <i class="bx bx-user"></i>
         </div>
-
-        <!------------------- registration form -------------------------->
-        <div class="register-container" id="register">
-           
-           
-            <header>Sign Up</header>
-           
-            <!-- <div class="two-forms"> -->
-                <div class="input-box">
-                    <input type="text" class="input-field" placeholder="Username">
-                    <i class="bx bx-user"></i>
-                </div>
-                <!-- <div class="input-box"> -->
-                    <!-- <input type="text" class="input-field" placeholder="Lastname"> -->
-                    <!-- <i class="bx bx-user"></i> -->
-                <!-- </div> -->
-            <!-- </div> -->
-            <div class="input-box">
-                <input type="text" class="input-field" placeholder="Email">
-                <i class="bx bx-envelope"></i>
+        <div class="input-box">
+            <input type="password" class="input-field" id="password" placeholder="Password">
+            <i class="bx bx-lock-alt"></i>
+        </div>
+        <div class="input-box">
+            <input type="submit" class="submit" value="Sign In" onclick="login()">
+        </div>
+        <!-- Checkbox and Forgot password link -->
+        <div class="two-col">
+            <!-- Remember Me checkbox -->
+            <div class="one">
+                <input type="checkbox" id="login-check">
+                <label for="login-check"> Remember Me</label>
             </div>
-            <div class="input-box">
-                <input type="password" class="input-field" placeholder="Password">
-                <i class="bx bx-lock-alt"></i>
+            <!-- Forgot password link -->
+            <div class="two">
+                <label><a href="#">Forgot password?</a></label>
             </div>
-            <div class="input-box">
-                <input type="submit" class="submit" value="Register">
-            </div>
-            <div class="two-col">
-                <div class="one">
-                    <input type="checkbox" id="register-check">
-                    <label for="register-check"> Remember Me</label>
-                </div>
-                <div class="two">
-                    <label><a href="#">Terms & conditions</a></label>
-                </div>
-            </div>
-
-            <div class="top">
-                <span>Have an account? <a href="#" onclick="login()">Login</a></span>
-               
-            </div>
+        </div>
+        <!-- Sign Up link -->
+        <div class="top">
+            <span>Don't have an account? <a href="#" onclick="register()">Sign Up</a></span>
         </div>
     </div>
-</div>   
-<div>
-    <!-- Include login/sign-up page HTML content here -->
-    <h1>Login/Signup Page</h1>
-    <button onclick="simulateLogin()">Simulate Login</button>
 </div>
-
-
+</div>   
 
 <script>
+function login() {
+    // Retrieve input values
+    var usernameOrEmail = document.getElementById("usernameOrEmail").value;
+    var password = document.getElementById("password").value;
+
+    // Construct request body
+    var data = {
+        identifier: usernameOrEmail,
+        password: password
+    };
+
+    // Send POST request to server
+    fetch('http://localhost:5000/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (response.ok) {
+            // Handle successful login (redirect, show message, etc.)
+            console.log("Login successful");
+        } else {
+            // Handle failed login (show error message, reset form, etc.)
+            console.error("Login failed");
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+</script>
+
+</body>
+</html>
+<!-- <script>
     function myMenuFunction() {
         var i = document.getElementById("navMenu");
 
@@ -145,12 +129,18 @@
     var y = document.getElementById("register");
 
     function login() {
-        x.style.left = "4px";
-        y.style.right = "-520px";
-        a.className += " white-btn";
-        b.className = "btn";
-        x.style.opacity = 1;
-        y.style.opacity = 0;
+        // send post login request to localhost:5000/login which accepts identifier and password from body
+        console.log("Test done...")
+        fetch('/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                identifier: 'usernameOrEmail',
+                password: 'password',
+            }),
+        })
     }
 
     function register() {
@@ -210,11 +200,7 @@
             console.error('Error during signup:', error);
         });
     }
-</script>
+</script> -->
 
 
 
-
-
-</body>
-</html>
